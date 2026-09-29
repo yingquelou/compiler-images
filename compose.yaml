@@ -1,0 +1,40 @@
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Docker Compose reference guide at
+# https://docs.docker.com/go/compose-spec-reference/
+
+# Here the instructions define your application as a service called "app".
+# This service is built from the Dockerfile in the current directory.
+# You can add other services your application may depend on here, such as a
+# database or a cache. For examples, see the Awesome Compose repository:
+# https://github.com/docker/awesome-compose
+services:
+  gcc:
+    build:
+      context: .
+      dockerfile: Dockerfile.alpine-clang
+      target: gcc
+    image: ghcr.io/yingquelou/gcc:alpine
+    container_name: gcc-alpine
+    platform: linux/x86_64
+    labels:
+      - org.opencontainers.image.source=https://github.com/yingquelou/compiler-images
+      
+  clang:
+    build:
+      context: .
+      dockerfile: Dockerfile.alpine-clang
+      target: clang
+    image: ghcr.io/yingquelou/clang:alpine
+    container_name: clang-alpine
+    platform: linux/x86_64
+    labels:
+      - org.opencontainers.image.source=https://github.com/yingquelou/compiler-images
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile.alpine-nodejs
+    image: ghcr.io/yingquelou/node:alpine
+    container_name: node-alpine
+    platform: linux/x86_64
+    labels:
+      - org.opencontainers.image.source=https://github.com/yingquelou/compiler-images

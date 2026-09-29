@@ -1,0 +1,13 @@
+# syntax=docker/dockerfile:1
+FROM ghcr.io/yingquelou/alpine:3.24.2 AS gcc
+
+RUN apk update
+RUN apk add doas
+RUN cat > /etc/doas.d/doas.conf <<'EOF'
+permit persist :wheel
+EOF
+RUN apk add cmake ninja build-base
+CMD sh
+
+FROM gcc AS clang
+RUN apk add clang clang-dev clang-extra-tools
